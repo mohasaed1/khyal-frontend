@@ -15,25 +15,43 @@ export default function Preview() {
 
   const downloadPdf = async () => {
     try {
-      const res = await axios.post('http://127.0.0.1:8000/api/v1/generate-pdf', new URLSearchParams({ child_name: childName, story_text: story }))
+      const res = await axios.post('http://127.0.0.1:8000/api/v1/generate-pdf', {
+        child_name: childName,
+        story_text: story
+      })
       setPdfUrl(res.data.pdf_url)
-    } catch (err) {
-      console.error(err)
+    } catch {
       alert('حدث خطأ أثناء إنشاء ملف PDF')
     }
   }
 
   return (
-    <div className="flex flex-col items-center justify-center p-10">
-      <h2 className="text-3xl font-bold mb-4">📖 قصة {childName}</h2>
-      <p className="mb-6 text-lg leading-loose text-right">{story}</p>
-      <button onClick={downloadPdf} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 mb-4">
+    <div style={{
+      maxWidth: '700px',
+      margin: '2rem auto',
+      padding: '1rem',
+      backgroundColor: '#FDF6FD',
+      borderRadius: '10px',
+      boxShadow: '0 0 10px rgba(0,0,0,0.1)'
+    }}>
+      <h2 style={{ color: '#8E44AD', marginBottom: '1rem' }}>📖 قصة {childName}</h2>
+      <p style={{ lineHeight: '1.8', marginBottom: '1.5rem' }}>{story}</p>
+      <button onClick={downloadPdf} style={{
+        backgroundColor: '#2980B9',
+        color: '#fff',
+        padding: '0.75rem 1.5rem',
+        border: 'none',
+        borderRadius: '8px',
+        cursor: 'pointer'
+      }}>
         تنزيل PDF
       </button>
       {pdfUrl && (
-        <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="underline text-blue-700">
-          تحميل ملف PDF
-        </a>
+        <div style={{ marginTop: '1rem' }}>
+          <a href={pdfUrl} target="_blank" style={{ color: '#2980B9', textDecoration: 'underline' }}>
+            تحميل ملف PDF
+          </a>
+        </div>
       )}
     </div>
   )
