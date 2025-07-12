@@ -12,48 +12,53 @@ export default function Create() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      // Upload photo
       const formData = new FormData()
       formData.append('file', photo)
       await axios.post('http://127.0.0.1:8000/api/v1/upload-photo', formData)
-      
-      // Generate story
-      const res = await axios.post('http://127.0.0.1:8000/api/v1/generate-story', new URLSearchParams({ child_name: childName }))
-      
-      // Save story locally
+
+      const res = await axios.post('http://127.0.0.1:8000/api/v1/generate-story', { child_name: childName })
       localStorage.setItem('story', res.data.story)
       localStorage.setItem('childName', childName)
-
       router.push('/preview')
     } catch (err) {
-      console.error(err)
       alert('حدث خطأ أثناء إنشاء القصة')
     }
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-50">
-      <h2 className="text-3xl font-bold mb-6">✨ إنشاء قصة جديدة</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80">
-        <input
-          type="text"
-          placeholder="اسم الطفل"
-          value={childName}
-          onChange={(e) => setChildName(e.target.value)}
-          required
-          className="p-3 rounded-lg border border-gray-300"
-        />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setPhoto(e.target.files[0])}
-          required
-          className="p-3 rounded-lg border border-gray-300"
-        />
-        <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
-          أنشئ القصة
-        </button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} style={{
+      display: 'flex',
+      flexDirection: 'column',
+      maxWidth: '400px',
+      margin: '2rem auto',
+      gap: '1rem'
+    }}>
+      <h2 style={{ fontSize: '2rem', color: '#8E44AD' }}>✨ أنشئ قصة جديدة</h2>
+      <input
+        type="text"
+        placeholder="اسم الطفل"
+        value={childName}
+        onChange={(e) => setChildName(e.target.value)}
+        required
+        style={{ padding: '0.75rem', borderRadius: '6px', border: '1px solid #ccc' }}
+      />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setPhoto(e.target.files[0])}
+        required
+        style={{ padding: '0.75rem', borderRadius: '6px', border: '1px solid #ccc' }}
+      />
+      <button type="submit" style={{
+        backgroundColor: '#27AE60',
+        color: '#fff',
+        padding: '0.75rem',
+        border: 'none',
+        borderRadius: '8px',
+        cursor: 'pointer'
+      }}>
+        أنشئ القصة
+      </button>
+    </form>
   )
 }
