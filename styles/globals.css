@@ -1,8 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  direction: rtl;
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(to bottom right, #F5F3FF, #EDE9FE);
+  color: #2C3E50;
+}
 
 body {
-  direction: rtl;
-  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2, h3 {
+  color: #8E44AD;
 }
