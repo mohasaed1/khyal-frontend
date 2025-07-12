@@ -1,15 +1,17 @@
 import '../styles/globals.css'
+import Navbar from '../components/Navbar'
 
 export const metadata = {
-  title: 'Khyal.ai - Arabic Kids Story Creator',
+  title: 'خيال.ai - Arabic Kids Stories',
   description: 'Create personalized Arabic storybooks for your child',
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ar" dir="rtl">
-      <body className="font-sans bg-gradient-to-br from-purple-100 to-pink-100 min-h-screen">
-        {children}
+    <html lang="ar">
+      <body>
+        <Navbar />
+        <main>{children}</main>
       </body>
     </html>
   )
